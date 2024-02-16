@@ -6,10 +6,16 @@
 Este manual tecnico tiene como objetivo explicar el proceso de creación y configuracion de una red local pequeña utilizando el software Cisco Packet Tracer. 
 
 ### 1. Diseño de topologia tipo estrella
-La red local estara compuesta por 7 computadoras y 2 switchs. los switchs se conectaran entre si y cada computadora se conectara a un switch dependiendo de si esta en un área del nivel 1 o nivel 2.
+La red local estara compuesta por 2 switchs y un total de 22 computadoras o VPC. los switchs se conectaran entre si y cada computadora se conectara a un switch dependiendo de si esta en un área del nivel 1 o nivel 2 y sus distintas areas.
 quedando de la siguiente manera:
 
-![Diseño de topologia tipo estrella](imagenes/diseño.PNG)
+Diseño del segundo nivel:
+
+![Diseño de topologia tipo estrella](imagenes/topolog1.PNG)
+
+Diseño del primer nivel:
+
+![Diseño de topologia tipo estrella](imagenes/topolog2.PNG)
 
 ### 2. Configuración de los switchs
 Para la configuración de los switchs se debe seguir los siguientes pasos:
@@ -34,11 +40,32 @@ a continuacion se muestran las capturas de pantalla de la configuración de los 
 Para la configuración de las computadoras se debe seguir los siguientes pasos:
 1. Ponemos una etiqueta para identificar cada computadora y saber a que area pertenece.
 2. damos click en la computadora,seleccionamos el modo desktop y damos click en IP Configuration.
-3. escribimos la direccion IP y la mascara de subred que corresponda a la computadora. El IP utilizado en esta practica es 192.168.53.XX, el 53 es practicamente los ultimos numeros de mi carnet, la primera X es el nivel es decir 1 o 2 dependiendo en donde esta el swith, y la ultima es el numero de computadora en ese nivel (1-9).
+3. escribimos la direccion IP y la mascara de subred que corresponda a la computadora. El IP utilizado en esta practica es 192.168.53.1x, el 53 es practicamente los ultimos numeros de mi carnet y el x es el numero de la computadora o vpc.
 4. hacemos lo mismo con todas las vpc.
 
-a continuacion se muestra la captura de pantalla de la configuración de una de las VPC:
-![Configuración de Atencion al cliente](imagenes/direcciones.png)
+a continuacion se muestran las capturas de pantalla de la configuración de las VPC:
+
+- VPC área de administración:
+![Configuración de VPC1](imagenes/VPC1.PNG)
+
+- VPC área de gerencia y secretaria:
+![Configuración de VPC2](imagenes/VPC2.PNG)
+
+- VPC área de atención al cliente:
+![Configuración de VPC3](imagenes/VPC3.PNG)
+
+- VPC área de recursos humanos:
+![Configuración de VPC4](imagenes/VPC4.PNG)
+
+- VPC área de Ofcina A:
+![Configuración de VPC5](imagenes/VPC5.PNG)
+
+- VPC área de Ofcina B:
+![Configuración de VPC6](imagenes/VPC6.PNG)
+
+- VPC área de Ofcina C:
+![Configuración de VPC7](imagenes/VPC7.PNG)
+
 
 ### 4. Verificación de comunicación entre las distintas areas
 Para esta verificación abrimos el modo desktop de la computadora/VPC que queremos verificar, abrimos command prompt y aqui haremos un ping entre los host de la siguiente manera:
@@ -46,16 +73,19 @@ Para esta verificación abrimos el modo desktop de la computadora/VPC que querem
 2. Si la comunicación es exitosa se mostrara un mensaje de respuesta de la computadora/VPC a la que se le envio el ping.
 
 a continuacion se muestran las capturas de pantalla de la verificación de comunicación entre las distintas areas:
-![Verificación desde OficinaA](imagenes/OficinaA.png)
-![Verificación desde OficinaB](imagenes/OficinaB.png)
-![Verificación desde rrhh](imagenes/RRHH.png)
 
+- Verificación de comunicación entre RRHH 1 y Oficina A 1:
+![Verificación de comunicación entre RRHH 1 y Oficina A 1](imagenes/RRHH1-OficinaA1.PNG)
 
+- Verificación de comunicación entre Admin y Oficina B 1:
+
+![Verificación de comunicación entre Admin y Oficina B 1](imagenes/Admin-OficinaB1.PNG)
+
+- Verificación de comunicación entre Oficina C 1 y atención al cliente 1:
+
+![Verificación de comunicación entre Oficina C 1 y atención al cliente 1](imagenes/OficinaC1-AtencionCliente1.PNG)
 
 ### 5. Envio de paquetes ARP/ICMP
 Para esta verificación se utilizó la herramienta de simulación de paquetes de Cisco Packet Tracer, se envio un paquete ARP y un paquete ICMP  como se muestra en la siguiente imagen:
 
 ![Envio de paquetes ARP/ICMP](imagenes/paquetes.PNG)
-
-
-
