@@ -98,42 +98,163 @@ Para la configuración de la sede de Jutiapa se utilizo el siguiente script.
 
 ```bash
 enable
-configure terminal
-hostname JUTIAPA
-interface GigabitEthernet0/0
-ip address
-no shutdown
-exit
+conf t
+no ip domain-lookup
+vtp version 2
+vtp mode server
+vtp domain usac
+vtp password usac
+vlan  19
+name RRHH
+vlan  29
+name CONTABILIDAD
+vlan  39
+name VENTAS
+vlan  49
+name INFORMATICA
+interface range f0/1 - 4
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 1,19,29,39,49,1002-1005
+spanning-tree vlan 19 root primary
+spanning-tree vlan 29 root primary
+spanning-tree vlan 39 root primary
+spanning-tree vlan 49 root primary
+spanning-tree mode rapid-pvst
+```
+confituracion de switch SW2 y SW3:
+```bash
+enable
+conf t
+no ip domain-lookup
+vtp version 2
+vtp mode client
+vtp domain usac
+vtp password usac
+interface range f0/4 - 6
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 1,19,29,39,49,1002-1005
+spanning-tree vlan 19 root primary
+spanning-tree vlan 29 root primary
+spanning-tree vlan 39 root primary
+spanning-tree vlan 49 root primary
+spanning-tree mode rapid-pvst
 ```
 
-### Configuración de la sede de Quiche
 
-Para la configuración de la sede de Quiche se utilizo el siguiente script.
+### Configuración de la sede de Qiche
+
+Para la configuración de la sede due Quiche se utilizo el siguiente script.
+
+```bash
+enable
+configure terminal
+hostname SW1
+no ip domain-lookup
+int fa0/1
+switchport mode access
+switchport access vlan 19
+int fa0/2
+switchport mode access
+switchport access vlan 29
+int fa0/3
+switchport mode access
+switchport access vlan 39
+int fa0/4
+switchport mode access
+switchport access vlan 49
+int fa0/5
+switchport mode trunk
+switchport trunk allowed vlan 1,19,29,39,49,1002-1005
+```
+
 
 ```bash
 enable
 configure terminal
 hostname QUICHE
-interface GigabitEthernet0/0
-ip address
+no ip domain-lookup
+int fa0/0
+no shutdown
+int f0/0.19
+encapsulation dot1q 19
+ip address 192.178.93.97 255.255.255.240
+no shutdown
+int f0/0.29
+encapsulation dot1q 29
+ip address 192.178.93.113 255.255.255.240
+no shutdown
+int f0/0.39
+encapsulation dot1q 39
+ip address 192.178.93.1 255.255.255.192
+no shutdown
+int f0/0.49
+encapsulation dot1q 49
+ip address 192.178.93.65 255.255.255.224
+no shutdown
+int fa1/0
+no shut
+int f1/0.19
+encapsulation dot1q 19
+ip address 192.178.93.98 255.255.255.240
+no shutdown
+int f1/0.29
+encapsulation dot1q 29
+ip address 192.178.93.114 255.255.255.240
+no shutdown
+int f1/0.39
+encapsulation dot1q 39
+ip address 192.178.93.2 255.255.255.192
 no shutdown
 exit
 ```
 
 ### Configuración de la sede de Peten
 
-Para la configuración de la sede de Peten se utilizo el siguiente script.
+Para la configuración del Switch ESW2 de la sede de Peten se utilizo el siguiente script.
 
 ```bash
 enable
 configure terminal
-hostname PETEN
-interface GigabitEthernet0/0
-ip address
-no shutdown
-exit
-```
+hostname ESW2
+no ip domain-lookup
+int fa0/1
+switchport mode access
+switchport access vlan 19
+int fa0/2
+switchport mode access
+switchport access vlan 29
+int fa0/3
+switchport mode access
+switchport access vlan 49
 
+int fa0/4
+switchport mode trunk
+switchport trunk allowed vlan 1,19,39,49,1002-1005
+```
+La configuracion para el Router Peten se muestra a continuación.
+
+```bash
+enable
+conf t
+hostname PETEN
+no ip domain-lookup
+int fa0/0
+no shutdown
+int f0/0.19
+encapsulation dot1q 19
+ip address 192.178.93.65 255.255.255.240
+no shutdown
+int f0/0.39
+encapsulation dot1q 39
+ip address 192.178.93.1 255.255.255.224
+no shutdown
+int f0/0.49
+encapsulation dot1q 49
+ip address 192.178.93.33 255.255.255.224
+no shutdown
+```
 ### Configuración de la sede de Escuintla
 
 Para la configuración de la sede de Escuintla se utilizo el siguiente script.
@@ -141,12 +262,32 @@ Para la configuración de la sede de Escuintla se utilizo el siguiente script.
 ```bash
 
 enable
-configure terminal
+conf t
+no ip domain-lookup
 hostname ESCUINTLA
-interface GigabitEthernet0/0
-ip address
+int fa0/0
+no shut
+int f0/0.19
+encapsulation dot1q 19
+ip address 192.148.93.33 255.255.255.248
 no shutdown
-exit
+int f0/0.39
+encapsulation dot1q 39
+ip address 192.148.93.1 255.255.255.224
+no shutdown
+```
+
+Para la configuracion de SW5 se utilizo el siguiente script.
+
+```bash
+enable
+configure terminal
+hostname SW5
+no ip domain-lookup
+int fa0/3
+switchport mode trunk
+switchport trunk allowed vlan 1,19,39,1002-1005
+
 ```
 
 ### Configuración de la central
@@ -157,9 +298,7 @@ Para la configuración de la central se utilizo el siguiente script.
 enable
 configure terminal
 hostname CENTRAL
-interface GigabitEthernet0/0
-ip address
-no shutdown
+no ip domain-lookup
 exit
 ```
 

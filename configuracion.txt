@@ -1,0 +1,74 @@
+servidor:
+	enable
+	conf t
+	hostname SW1
+	no ip domain-lookup
+	vtp version 2
+	vtp mode server
+	vtp domain P3
+	vtp password usac
+	do wr
+	vlan 19
+	name CONTABILIDAD
+	vlan 29
+	name SECRETARIA
+	vlan 39
+	name RRHH
+	vlan 49
+	name IT
+	interface range fa0/1-5
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+	switchport trunk allowed vlan 1,19,29,39,49,1002-1005
+	spanning-tree vlan 1 root primary
+	spanning-tree vlan 19 root primary
+	spanning-tree vlan 29 root primary
+	spanning-tree vlan 39 root primary
+	spanning-tree vlan 49 root primary
+rstp	spanning-tree mode rapid-pvst  
+	do wr
+	exit
+	sh spanning-tree
+	show vlan
+	sh vtp status
+
+CLIENTES:
+	enable
+	conf t
+	hostname nombre
+	no ip domain-lookup
+	vtp version 2
+	vtp mode client
+	vtp domain P3
+	vtp password usac
+	do wr
+	interface fa0/1
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+	switchport trunk allowed vlan 1,19,29,39,49,1002-1005
+	spanning-tree mode rapid-pvst 
+	do wr
+	exit
+	show vlan brief	
+	show vtp status
+
+CLIENTES FINALES EXTRA:
+	configure terminal
+	interface Fa0/2
+	switchport mode access
+	switchport access vlan 19
+	access-list 101 deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255
+	access-list 101 deny ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
+	access-list 101 deny ip 192.168.10.0 0.0.0.255 192.168.40.0 0.0.0.255
+	do write
+	sh access-list
+
+CLIENTE EN MODO TRASPARENTE
+	vtp mode transparent
+	vtp domain dominio
+	vtp password contrasena
+	* se configuran las vlan?
+
+	
+
+	
